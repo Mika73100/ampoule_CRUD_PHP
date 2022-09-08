@@ -1,0 +1,34 @@
+body {
+  margin: 50px;
+  background-color: var(--BackgroundForm);
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  background-color: var(--BackgroundDash);
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn btn-primary, btn-warning, btn-info {
+  color: white;
+  text-decoration: none;
+}
+
+:root {
+  --Boutton: rgb(80, 78, 205); /* couleur boutton */
+  --BackgroundDash: #ffffff; /* background couleur dashbord */
+  --BackgroundForm: rgb(54, 52, 52); /* background couleur page formulaire */
+}
+
+/*# sourceMappingURL=style.css.map */
