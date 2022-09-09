@@ -71,3 +71,33 @@ require '../connexion.php';
         </main>
     </body>
 </html>
+
+
+<?php
+    if (isset($_SESSION['supprimer']) && $_SESSION['supprimer'] == true) { ?>
+        <script type="text/javascript">
+            $(function() {
+                toastr.success(' <b>Changement supprimer !</b>', 'supprimer', {
+                    positionClass: "toast-top-full-width",
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-center",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "3000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+            });
+        </script>
+    <?php }
+    $_SESSION['supprimer'] = false;
+    ?>
+    

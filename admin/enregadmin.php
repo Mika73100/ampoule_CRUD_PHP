@@ -1,20 +1,12 @@
 <?php
 
-//ici j'enregistre l'admin
-
+//Connexion 
 require_once 'connexion.php';
+require_once '../outils/fonction.php';
 
-function valid_donnees($donnees){
-    $donnees = trim($donnees);
-    $donnees = stripslashes($donnees);
-    $donnees = htmlspecialchars($donnees);
-    $donnees = strip_tags($donnees);
-    return $donnees;
-}
 
-// Connexion 
-if(!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["mail"]) && filter_var
-(valid_donnees($_POST['mail'],FILTER_VALIDATE_EMAIL))) {
+
+if(!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["mail"]) &&filter_var(valid_donnees($_POST['mail'],FILTER_VALIDATE_EMAIL))) {
 
     
     $password = valid_donnees($_POST['password']);
@@ -41,8 +33,6 @@ if(!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["ma
     } else {
         echo 'Le mot de passe est invalide.';
     } 
-
-    
 } 
 ?>
 
