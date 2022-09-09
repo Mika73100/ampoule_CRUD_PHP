@@ -19,34 +19,39 @@ require '../connexion.php';
 <body>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <main>
+    <main><br>&nbsp;
+    <a href="../index.php?deco=out"><button class="btn btn-danger">Déconnexion</button></a>
         <div class="row">
             <section class="col-12">
                 <table class="table">
+                    <br>
                     <thead>
-                        <th>ID</th>
+                        <th></th>
                         <th>Username</th>
                         <th>Mail</th>
                         <th>Portable</th>
                         <th>Nom</th>
                         <th>Prenom</th>
 
-                        <th><a href="../affiche.php"><button class="btn btn-success">Dashbord</button></a></th>
+                        <th><a href="../affiche.php"><button class="btn btn-success">Dashboard</button></a>
+
+                        
+                    
+                    </th>
                     </thead>
                 <tbody>
 
-
-                        
                         <?php
                     $prepare =$pdo->prepare("SELECT id, username, mail, portable, nom, prenom  FROM users");
                     $prepare->execute();
                     $result = $prepare->fetchAll();
                     //print_r($result);
+                        $compteur = 1;
                         foreach($result as $users) {
                         
                         ?>
                             <tr>
-                                <td><?= $users['id'] ?><br></td>
+                                <td><?= $compteur ?></td>
                                 <td><?= $users['username'] ?><br></td>
                                 <td><?= $users['mail'] ?><br></td>
                                 <td><?= $users['portable'] ?><br></td>
@@ -55,8 +60,10 @@ require '../connexion.php';
                                 <td>
                                     <a href="formadmin.php?id=<?= $users['id'] ?>"><button class="btn btn-primary">Détails</button></a>
 
+                                    <button type="submit" class="btn btn-danger"><a href="supprimer.php?id=<?=$users['id']?>">Supprimer</a></button>
+
                                 </tr>
-                            <?php } ?>
+                            <?php $compteur++;} ?>
                         </tbody>
                     </table>
                 </section>

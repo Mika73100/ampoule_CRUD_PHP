@@ -12,7 +12,7 @@ body {
 .box-login {
     flex-shrink: 0;
     background: white;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 h2 {
@@ -122,3 +122,4 @@ button:active {
     transform: translateX(-50%);
     top:10px;
 }
+

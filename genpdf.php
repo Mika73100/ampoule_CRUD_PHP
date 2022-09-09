@@ -1,5 +1,6 @@
 
 <?php
+
 require_once 'connexion.php';
 require_once 'genpdf.php';
 
@@ -11,31 +12,31 @@ $resultat = $prepare->fetchAll();
 extract($resultat[0]);
 
 
-$prepare2 =$pdo->prepare("SELECT mail FROM users WHERE username LIKE '%$username%'");
+$prepare2 =$pdo->prepare("SELECT * FROM users WHERE username LIKE '%$username%'");
 $prepare2->execute();
 $resultat2= $prepare2->fetch();
 extract($resultat2);
 
-$html="<body>
-    <h1>Liste de l'intervention technique</h1>
-    <table>
-        <thead>
-            <th>Nom</th>
-            <th>Date</th>
-            <th>Etage</th>
-            <th>Position</th>
-            <th>Message</th>
-        </thead>
-        <tbody>
-                <tr><td>$username</td></tr>
-                <tr><td>$date</td></tr>
-                <tr>><td>$etage</td></tr>
-                <tr><td>$position</td></tr>
-                <tr><td>$message</td></tr>
-                
-        </tbody>
-    </table>
-</body>";
+
+
+$message= (isset($message))? $message:'';
+
+
+$html="
+        <body>
+        <img src='./img/logo.png' width='150' height='150'>
+            <h1>Information de l'intervention</h1>
+            <ul>
+                <li>Date : $date</li>
+                <li>NOM : $username</li>
+                <li>Etage : $etage</li>
+                <li>Position : $position</li>
+                <li>Prix : $prix</li>
+                <li>Message : $message</li>
+            </ul>
+        </body>";
+
+
 
 require_once __DIR__ . '/vendor/autoload.php';
 $mpdf = new \Mpdf\Mpdf([
@@ -48,3 +49,11 @@ if (is_file('pdf/'.$file.'.pdf')) {
     unlink('pdf/'.$file.'.pdf');
 }
 header( "Location:pdf/$filename.pdf");
+
+
+
+
+
+
+
+

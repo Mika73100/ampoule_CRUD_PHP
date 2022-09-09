@@ -1,6 +1,7 @@
 <?php
 
 require_once 'connexion.php';
+require_once './outils/fonction.php';
 
 
 if (isset( $_POST['password'])){

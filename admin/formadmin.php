@@ -3,37 +3,16 @@
 //je recupère la connexion
 require_once '../connexion.php';
 
-if (!empty($_POST["username"]) && !empty($_POST["mail"]) && !empty($_POST["portable"]) 
-&& !empty($_POST["prenom"]) && !empty($_POST["nom"]) && !empty($_POST["id"])
 
-) {
 
-    $id  = $_POST['id'];
-    $username  = $_POST['username'];
-    $mail  = $_POST['mail'];
-    $portable  =$_POST['portable'];
-    $prenom  =$_POST['prenom'];
-    $nom  =$_POST['nom'];
+$id=$_GET['id'];
+$prepare = $pdo->prepare("SELECT * FROM users WHERE id=$id");
+$prepare->execute();
+$users = $prepare->fetch();
 
-    $sql = "UPDATE users SET username= :username, mail= :mail, portable= :portable, prenom= :prenom, nom= :nom  WHERE id=:id";
-    $req = $pdo->prepare($sql);
 
-        //on "accroche" les paramètres (id)
-        $req->bindParam(':username', $username, PDO::PARAM_STR);
-        $req->bindParam(':mail', $mail, PDO::PARAM_STR);
-        $req->bindParam(':portable', $portable, PDO::PARAM_STR);
-        $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-        $req->bindParam(':nom', $mail, PDO::PARAM_STR);
-        $req->bindParam(':id', $id , PDO::PARAM_INT);
-        //on exécute la requete
-        $req->execute();
+error_log('debut de la condition');
 
-        $id = $_POST['id'];
-        $prepare = $pdo->prepare("SELECT id, username, mail, portable, nom, prenom From users WHERE Id= " . $_POST['id']);
-        $prepare->execute();
-        $resultat = $prepare->fetch();
-
-    }
 ?>
 
 
@@ -52,58 +31,56 @@ if (!empty($_POST["username"]) && !empty($_POST["mail"]) && !empty($_POST["porta
 
 <body>
     <main class="container">
-        <?php
-        foreach ($resultat as $users) {
-        ?>
             <section class="col-12">
                 <h1>Fiche contact</h1>
-                <form action="modifier.php?id=<?php echo $users['id'] ?>" method="post">
+                <form action="modifier.php?id=<?=$users['id']?>" method="post">
 
-                <input type="hidden" value="<?= $users['id']?>" name="id">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input class="form-control" value="<?= $users['username'] ?>" name="username" placeholder="Username">
+                        <input class="form-control" value="<?=$users['username']?>" name="username" placeholder="Username">
                         </input>
                     </div>
 
                     <div class="form-group">
                         <label for="nom">Nom:</label>
-                        <input class="form-control" value=" <?= $users['nom'] ?>" name="nom" placeholder="Nom">
+                        <input class="form-control" value="<?=$users['nom']?>" name="nom" placeholder="Nom">
                         </input>
                     </div>
 
                     <div class="form-group">
                         <label for="prenom">Prenom:</label>
-                        <input class="form-control" value="<?= $users['prenom'] ?>" name="prenom" placeholder="Prenom">
+                        <input class="form-control" value="<?=$users['prenom']?>" name="prenom" placeholder="Prenom">
                         </input>
                     </div>
 
                     <div class="form-group">
-                        <label for="prenom">Portable:</label>
-                        <input class="form-control" value=" <?= $users['portable'] ?>" name="portable" placeholder="Portable">
+                        <label for="portable">Portable:</label>
+                        <input class="form-control" value="<?=$users['portable']?>" name="portable" placeholder="Portable">
                         </input>
                     </div>
 
                     <div class="form-group">
-                        <label for="etage">Adresse Email:</label>
-                        <input type="mail" max="30" value="<?php echo $users['mail'] ?>" class="form-control" name="mail" placeholder="email">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-warning"><a href="modifier.php">Modifier</a></button>
+                        <label for="mail">Adresse Email:</label>
+                        <input type="mail" max="30" value="<?=$users['mail']?>" class="form-control" name="mail" placeholder="email">
+                        </input>
+                    </div><br>
 
-                    <button class="btn btn-primary"><a href="admin.php">Détails</a></button>    
+                    <button class="btn btn-primary"><a href="admin.php">Retour</a></button>   
+
+                    <a href="modifier.php?id=<?= $users['id'] ?>"><button type="submit" class="btn btn-warning" name="modifier" onclick="return confirm('Voulez-vous modifier ?')">Modifier</button></a>
+
+
+ 
                 </form>
-                
-            <?php } ?>
-            </section>
+        </section>
     </main>
 
 
     <?php
-    if (isset($_SESSION['modifier']) && $_SESSION['modifier'] == true) { ?>
+    if (isset($_SESSION['supprimer']) && $_SESSION['supprimer'] == true) { ?>
         <script type="text/javascript">
             $(function() {
-                toastr.success(' <b>Changement modifier !</b>', 'Modifier', {
+                toastr.success(' <b>Changement supprimer !</b>', 'supprimer', {
                     positionClass: "toast-top-full-width",
                     "closeButton": false,
                     "debug": false,
@@ -124,7 +101,7 @@ if (!empty($_POST["username"]) && !empty($_POST["mail"]) && !empty($_POST["porta
             });
         </script>
     <?php }
-    $_SESSION['modifier'] = false;
+    $_SESSION['supprimer'] = false;
     ?>
     
 

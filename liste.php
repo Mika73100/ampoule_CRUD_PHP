@@ -1,17 +1,16 @@
 <?php
 
-require 'connexion.php';
+require_once 'connexion.php';
+//require_once './outils/fonction.php';
 
-//print_r("rrr". $_SESSION['id']);
 if (isset($_POST['ajouter'])) {
     try {
-        
         $now = date("d/m/Y H:i:s", time());
         $sql = "INSERT INTO exo (date,etage,prix,position,users_id) VALUES ('$now',:etage,:prix,:position,:users_id)";
 
         $prepare = $pdo->prepare($sql);
         $prepare->bindParam(':etage', $_POST['etage'],PDO::PARAM_STR);
-        $prepare->bindParam(':prix', $_POST['prix'],PDO::PARAM_INT);
+        $prepare->bindParam(':prix', $_POST['prix'],PDO::PARAM_STR);
         $prepare->bindParam(':position', $_POST['position'],PDO::PARAM_STR);
         $prepare->bindParam(':users_id', $_SESSION['id'],PDO::PARAM_INT);
         $prepare->execute();
@@ -75,6 +74,7 @@ if (isset($_POST['ajouter'])) {
             
             
             <div class="form-group">
+                
             <button name="ajouter" type="ajouter" action="liste.php" class="btn btn-success">Ajouter</button>
             
             <a class="btn btn-info" href="affiche.php" role="button">Dashbord</a>

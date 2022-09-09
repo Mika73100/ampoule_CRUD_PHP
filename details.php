@@ -4,9 +4,12 @@ require_once 'connexion.php';
 
 
 $id=$_GET['id'];
-$prepare = $pdo->prepare("SELECT * FROM exo WHERE id=$id");
+$prepare = $pdo->prepare("SELECT * FROM exo WHERE users_id=$id");
 $prepare->execute();
-$resultat = $prepare->fetchAll();
+$exo = $prepare->fetch();
+
+error_log("detail -> SELECT * FROM exo WHERE users_id=$id");
+error_log("detail -> ".print_r($exo, 1));
 
 ?>
 
@@ -24,9 +27,7 @@ $resultat = $prepare->fetchAll();
 
 <body>
     <main class="container">
-            <?php
-            foreach ($resultat as $exo) {
-                ?>
+
             <section class="col-12">
                 <h1>Fiche technique</h1><br>
                 
@@ -35,11 +36,10 @@ $resultat = $prepare->fetchAll();
                     <label for="date">date: <?= $exo['date'] ?> </label>
                 </div><br>
 
-
                 <div class="form-group">
                     <label for="position">Default Position: </label>
                     <select  value="position" class="form-control" name="position" placeholder="Position">
-                    <option value="droit">Droit</option>
+                    <option value="droit">Droite</option>
                     <option value="aufond">Au fond</option>
                     <option value="gauche">Gauche</option>
                     </select>
@@ -81,10 +81,10 @@ $resultat = $prepare->fetchAll();
         
                 </div>
                 </form>
-            <?php }?>
             
 </section>
 </main>
+
 <?php
     if (isset($_SESSION['modifier']) && $_SESSION['modifier'] == true) { ?>
         <script type="text/javascript">

@@ -1,10 +1,17 @@
 <?php
-require_once 'connexion.php';
 
-//print_r($_SESSION['id']);
-$prepare = $pdo->prepare("SELECT * FROM exo");
+require_once 'connexion.php';
+require_once 'outils/fonction.php';
+
+$prepare = $pdo->prepare("SELECT *, users.username FROM exo JOIN users ON exo.users_id = users.id
+WHERE users_id = ".$_SESSION['id']);
+
+error_log(print_r($_SESSION, 1));
+error_log("SELECT * FROM exo WHERE users_id = ".$_SESSION['id']);
+
 $prepare->execute();
-$exo = $prepare->fetchAll();
+$exos = $prepare->fetchAll();
+//error_log(print_r($exos, 1));
 ?>
 
 
@@ -18,51 +25,61 @@ $exo = $prepare->fetchAll();
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
+
     <title>Dashbord</title>
 </head>
 
 <body>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <main>
+    <main><br>&nbsp;
+
+    <a href="index.php?deco=out"><button class="btn btn-danger">Déconnexion</button></a>
         <div class="row">
+        
             <section class="col-12">
+
                 <table class="table">
+                <br>
                     <thead>
-                        <th>ID</th>
+                        <th></th>
                         <th>Date</th>
                         <th>Etage</th>
                         <th>Position</th>
                         <th>Prix</th>
                         <th>Users</th>
                         <th><a href="liste.php"><button class="btn btn-success" >Ajouter</button></a>&nbsp;
-                        <a href="admin/admin.php"><button class="btn btn-warning" >Admin </button></a>
-                    </thead>
-                    <tbody>
+
                         <?php
-
-
-                    $prepare = $pdo->prepare("SELECT username FROM users INNER JOIN exo ON users.id = exo.users_id");
-                    $prepare->execute();
-                    $result = $prepare->fetchAll();
-                    //print_r($result);
-                    for ($i = 0; $i < count($result); $i++) {
+                        //error_log(print_r($_SESSION));
+                        if (isset($_SESSION['usernameadmin'])){
                         
+                            echo '<a href="admin/admin.php"><button class="btn btn-info" >Admin</button ></a>&nbsp;';
+                        }
                         ?>
+                    </thead>
+
+
+                    <tbody>
+                        
+                    <?php $compteur = 1;
+                    error_log(print_r($exos,1));
+                            foreach ($exos as $exo) {  ?>
+                            
                             <tr>
-                                <td><?= $exo[$i]['id'] ?><br></td>
-                                <td><?= $exo[$i]['date'] ?><br></td>
-                                <td><?= $exo[$i]['etage'] ?><br></td>
-                                <td><?= $exo[$i]['position'] ?><br></td>
-                                <td><?= $exo[$i]['prix'] ?></td>
-                                <td><?= $result[$i]['username']?></td>                  
+                                <td><?= $compteur ?></td>
+                                <td><?= $exo['date'] ?><br></td>
+                                <td><?= $exo['etage'] ?><br></td>
+                                <td><?= $exo['position'] ?><br></td>
+                                <td><?= $exo['prix'] ?></td>
+                                <td><?= $exo['username']?></td>                  
                                 <td>
 
-                                    <a href="details.php?id=<?= $exo[$i]['id'] ?>"><button class="btn btn-primary">Détails</button></a>
+                                    <a href="details.php?id=<?= $exo['id'] ?>"><button class="btn btn-primary">Détails</button></a>
 
-                                    <a href="supprimer.php?id=<?= $exo[$i]['id'] ?>"><button class="btn btn-danger" onclick="return confirm('Voulez-vous supprimer ?')">Supprimer</button></a>
+                                    <a href="supprimer.php?id=<?= $exo['id'] ?>"><button class="btn btn-danger" onclick="return confirm('Voulez-vous supprimer ?')">Supprimer</button></a>
                             </tr>
-                        <?php } ?>
+                            <?php $compteur++;} ?>
                     </tbody>
                 </table>
             </section>

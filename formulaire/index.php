@@ -1,21 +1,27 @@
 <?php
 
 require'../connexion.php';
+require_once'../outils/fonction.php';
 
+unset($_SESSION['id']);
+unset($_SESSION['username']);
+error_log("Inscription ".print_r($_SESSION, 1));
+
+error_log(print_r($_POST,1));
 if (isset($_POST["inscription"])){
-if( !empty($username = $_POST['username'] && 
-    !empty($password = password_hash($_POST['password'], PASSWORD_DEFAULT)) &&
-    !empty( $mail = $_POST['mail']) &&
-    !empty($prenom = $_POST['prenom']) &&
-    !empty($nom = $_POST['nom']) &&
-    !empty($portable = $_POST['portable'])
-    )){
-
+if( !empty($username = valid_donnees($_POST['username'])) && 
+    !empty($password = password_hash(valid_donnees($_POST['password']), PASSWORD_DEFAULT)) &&
+    !empty( $mail = valid_donnees($_POST['mail'])) &&
+    !empty($prenom = valid_donnees($_POST['prenom'])) &&
+    !empty($nom = valid_donnees($_POST['nom'])) &&
+    !empty($portable = valid_donnees($_POST['portable']))
+    ){
+        error_log($password);
     // print_r($_POST);
     $sql = "INSERT INTO users (username, password, mail, prenom, nom, portable) VALUES (:username,:password,:mail,:prenom,:nom,:portable)";
 
     $req = $pdo->prepare($sql);
-
+    error_log($username);
         $req->bindParam(':username', $username, PDO::PARAM_STR);
         $req->bindParam(':password', $password, PDO::PARAM_STR);
         $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);
@@ -24,6 +30,9 @@ if( !empty($username = $_POST['username'] &&
         $req->bindParam(':mail', $mail, PDO::PARAM_STR);
         $req->execute();
         
+        $_SESSION['username'] = $username;
+        $_SESSION['id'] = $pdo->lastInsertId();
+
         header("Location: ../affiche.php");
     }
 }
