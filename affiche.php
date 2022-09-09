@@ -13,8 +13,6 @@ $prepare->execute();
 $exos = $prepare->fetchAll();
 //error_log(print_r($exos, 1));
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -26,30 +24,28 @@ $exos = $prepare->fetchAll();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 
-    <title>Dashbord</title>
+    <title>Dashbord utilisateurs</title>
 </head>
 
 <body>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <main><br>&nbsp;
-
     <a href="index.php?deco=out"><button class="btn btn-danger">Déconnexion</button></a>
+    
         <div class="row">
-        
             <section class="col-12">
-
                 <table class="table">
                 <br>
                     <thead>
-                        <th></th>
+                        <td>
                         <th>Date</th>
                         <th>Etage</th>
                         <th>Position</th>
                         <th>Prix</th>
                         <th>Users</th>
                         <th><a href="liste.php"><button class="btn btn-success" >Ajouter</button></a>&nbsp;
-
+                        </thead>
                         <?php
                         //error_log(print_r($_SESSION));
                         if (isset($_SESSION['usernameadmin'])){
@@ -57,11 +53,10 @@ $exos = $prepare->fetchAll();
                             echo '<a href="admin/admin.php"><button class="btn btn-info" >Admin</button ></a>&nbsp;';
                         }
                         ?>
-                    </thead>
+                    
 
 
-                    <tbody>
-                        
+                <tbody>
                     <?php $compteur = 1;
                     error_log(print_r($exos,1));
                             foreach ($exos as $exo) {  ?>
@@ -75,7 +70,7 @@ $exos = $prepare->fetchAll();
                                 <td><?= $exo['username']?></td>                  
                                 <td>
 
-                                    <a href="details.php?id=<?= $exo['id'] ?>"><button class="btn btn-primary">Détails</button></a>
+                                    <a href="details.php?id=<?= $exo['id'] ?>"><button class="btn btn-primary">Détails</button></a>&nbsp;
 
                                     <a href="supprimer.php?id=<?= $exo['id'] ?>"><button class="btn btn-danger" onclick="return confirm('Voulez-vous supprimer ?')">Supprimer</button></a>
                             </tr>

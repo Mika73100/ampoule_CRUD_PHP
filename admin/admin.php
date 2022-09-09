@@ -1,6 +1,6 @@
 <?php
 
-require '../connexion.php';
+require_once '../connexion.php';
 
 ?>
 

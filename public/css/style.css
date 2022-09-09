@@ -25,6 +25,18 @@ body {
   text-decoration: none;
 }
 
+.container {
+  background-color: var(--BackgroundDash);
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 :root {
   --Boutton: rgb(80, 78, 205); /* couleur boutton */
   --BackgroundDash: #ffffff; /* background couleur dashbord */
