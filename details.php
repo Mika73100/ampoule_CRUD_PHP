@@ -2,6 +2,7 @@
 
 require_once 'connexion.php';
 
+define("NOMBREETAGE",50);
 
 $id=$_GET['id'];
 $prepare = $pdo->prepare("SELECT * FROM exo WHERE users_id=$id");
@@ -48,17 +49,21 @@ error_log("detail -> ".print_r($exo, 1));
             <div class="form-group">
                 <label for="etage">Selection de l'étage</label>
                 <select name="etage">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
+                    <?php for ($i=1; $i <NOMBREETAGE ; $i++) { 
+                        echo "<option value=$i>$i</option>";
+                    } 
+                    // <option value="1">1</option>
+                    // <option value="2">2</option>
+                    // <option value="3">3</option>
+                    // <option value="4">4</option>
+                    // <option value="5">5</option>
+                    // <option value="6">6</option>
+                    // <option value="7">7</option>
+                    // <option value="8">8</option>
+                    // <option value="9">9</option>
+                    // <option value="10">10</option>
+                    // <option value="11">11</option>
+                    ?>
                 </select>
             </div><br>
 

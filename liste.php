@@ -2,7 +2,7 @@
 
 require_once 'connexion.php';
 //require_once './outils/fonction.php';
-
+define("NOMBREETAGE",50);
 if (isset($_POST['ajouter'])) {
     try {
         $now = date("d/m/Y H:i:s", time());
@@ -44,17 +44,21 @@ if (isset($_POST['ajouter'])) {
             <div class="form-group">
                 <label for="select">Selection de l'étage</label>
                 <select name="etage">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
+                <?php for ($i=1; $i <=NOMBREETAGE ; $i++) { 
+                        echo "<option value=$i>$i</option>";
+                    } 
+                    // <option value="1">1</option>
+                    // <option value="2">2</option>
+                    // <option value="3">3</option>
+                    // <option value="4">4</option>
+                    // <option value="5">5</option>
+                    // <option value="6">6</option>
+                    // <option value="7">7</option>
+                    // <option value="8">8</option>
+                    // <option value="9">9</option>
+                    // <option value="10">10</option>
+                    // <option value="11">11</option>
+                    ?>
                 </select>
             </div><br>
 

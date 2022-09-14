@@ -1,5 +1,8 @@
-<?php 
+<?php
 
+
+
+//sécurisation des données 
 function valid_donnees($donnees){
     $donnees = trim($donnees);
     $donnees = stripslashes($donnees);
@@ -7,6 +10,7 @@ function valid_donnees($donnees){
     $donnees = strip_tags($donnees);
     return $donnees;
 }
+
 
 
 ?>
