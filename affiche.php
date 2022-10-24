@@ -1,13 +1,14 @@
 <?php
 
-require_once 'connexion.php';
-require_once 'outils/fonction.php';
+
+require_once './outils/connexion.php';
+require_once'./outils/fonction.php';
 
 $prepare = $pdo->prepare("SELECT *, users.username FROM exo JOIN users ON exo.users_id = users.id
 WHERE users_id = ".$_SESSION['id']);
 
-error_log(print_r($_SESSION, 1));
-error_log("SELECT * FROM exo WHERE users_id = ".$_SESSION['id']);
+//error_log(print_r($_SESSION, 1));
+//error_log("SELECT * FROM exo WHERE users_id = ".$_SESSION['id']);
 
 $prepare->execute();
 $exos = $prepare->fetchAll();
@@ -15,70 +16,64 @@ $exos = $prepare->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+    <head>
+        <link rel="icon" href="../ampoule/img/logo-favicon.png" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+        
+        <title>Dashbord utilisateurs</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
+    <body>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-    <title>Dashbord utilisateurs</title>
-</head>
+        <main><br>&nbsp;
+        
+        <a href="index.php?deco=out"><button class="btn btn-danger">Déconnexion</button></a>
 
-<body>
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <main><br>&nbsp;
-    <a href="index.php?deco=out"><button class="btn btn-danger">Déconnexion</button></a>
+        <h1>Dashbord utilisateurs</h1>
     
-        <div class="row">
-            <section class="col-12">
-                <table class="table">
-                <br>
-                    <thead>
-                        <td>
-                        <th>Date</th>
-                        <th>Etage</th>
-                        <th>Position</th>
-                        <th>Prix</th>
-                        <th>Users</th>
-                        <th><a href="liste.php"><button class="btn btn-success" >Ajouter</button></a>&nbsp;
-                        </thead>
-                        <?php
-                        //error_log(print_r($_SESSION));
-                        if (isset($_SESSION['usernameadmin'])){
-                        
-                            echo '<a href="admin/admin.php"><button class="btn btn-info" >Admin</button ></a>&nbsp;';
-                        }
-                        ?>
-                    
-
-
-                <tbody>
+        <section class="col-12">
+            <table class="table">
+        
+        <br>
+            <thead>
+                    <th scope="col">N°</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Etage</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Users</th>
+                    <th><a href="liste.php"><button class="btn btn-success" >Ajouter</button></a>&nbsp;
+                    <?php
+                    //error_log(print_r($_SESSION));
+                    if (isset($_SESSION['usernameadmin'])){
+                    echo '<a href="admin/admin.php"><button class="btn btn-info" >Admin</button ></a>&nbsp;';}?></th>
+            </thead>
+        
                     <?php $compteur = 1;
                     error_log(print_r($exos,1));
                             foreach ($exos as $exo) {  ?>
                             
-                            <tr>
-                                <td><?= $compteur ?></td>
-                                <td><?= $exo['date'] ?><br></td>
-                                <td><?= $exo['etage'] ?><br></td>
-                                <td><?= $exo['position'] ?><br></td>
-                                <td><?= $exo['prix'] ?></td>
-                                <td><?= $exo['username']?></td>                  
-                                <td>
+                    <tr>
+                        <td><?= $compteur ?></td>
+                        <td><?= $exo['date'] ?><br></td>
+                        <td><?= $exo['etage'] ?><br></td>
+                        <td><?= $exo['position'] ?><br></td>
+                        <td><?= $exo['prix'] ?></td>
+                        <td><?= $exo['username']?></td>                  
+                        <td>
+                            <a href="details.php?id=<?= $exo['id'] ?>"><button class="btn btn-primary">Détails</button></a><br><br>
 
-                                    <a href="details.php?id=<?= $exo['id'] ?>"><button class="btn btn-primary">Détails</button></a>&nbsp;
-
-                                    <a href="supprimer.php?id=<?= $exo['id'] ?>"><button class="btn btn-danger" onclick="return confirm('Voulez-vous supprimer ?')">Supprimer</button></a>
-                            </tr>
-                            <?php $compteur++;} ?>
-                    </tbody>
-                </table>
-            </section>
-        </div>
+                            <a class="btn btn-danger" type="submit" href="supprimer.php?id=<?=$users['id']?>" role="button">Supprimer</a>
+                        </td>
+                        <!-- ici j'incrémante ma colonne numéro -->
+                        <?php $compteur++;} ?>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <?php
@@ -105,9 +100,10 @@ $exos = $prepare->fetchAll();
                 });
             });
         </script>
+
     <?php }
     $_SESSION['supprimer'] = false;
     ?>
     
-</body>
+    </body>
 </html>

@@ -1,16 +1,19 @@
 <?php
 
-require_once 'connexion.php';
+require_once './outils/connexion.php';
+require_once'./outils/fonction.php';
 
 define("NOMBREETAGE",50);
 
 $id=$_GET['id'];
+//$prepare = $pdo->prepare("SELECT *, users.username FROM exo JOIN users ON exo.users_id = users.id
+//WHERE users_id = ".$_SESSION['id']);
 $prepare = $pdo->prepare("SELECT * FROM exo WHERE users_id=$id");
 $prepare->execute();
 $exo = $prepare->fetch();
 
-error_log("detail -> SELECT * FROM exo WHERE users_id=$id");
-error_log("detail -> ".print_r($exo, 1));
+//error_log("detail -> SELECT * FROM exo WHERE users_id=$id");
+//error_log("detail -> ".print_r($exo, 1));
 
 ?>
 
@@ -18,9 +21,7 @@ error_log("detail -> ".print_r($exo, 1));
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../ampoule/img/logo-favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="public\css\style.css">
     <title>Localisation d'intervention</title>
@@ -34,7 +35,7 @@ error_log("detail -> ".print_r($exo, 1));
                 
             <form action="modifier.php?id=<?php echo $exo['id']?>" method="post">
                 <div class="form-group">
-                    <label for="date">date: <?= $exo['date'] ?> </label>
+                    <label for="date">date: <?php echo $exo['date'] ?> </label>
                 </div><br>
 
                 <div class="form-group">
@@ -76,18 +77,16 @@ error_log("detail -> ".print_r($exo, 1));
                     <label for="message">Message:</label>
                     <input type="text" value="<?php echo $exo['message'] ?>"  class="form-control" name="message" placeholder="Message">
                 </div><br>
+                
+                <a class="btn btn-primary" href="affiche.php" type="submit">Retour</a>
 
                 <a href="modifier.php?id=<?= $exo['id'] ?>"><button type="submit" class="btn btn-warning" name="modifier" onclick="return confirm('Voulez-vous modifier ?')">Modifier</button></a>
             
-                <a href="affiche.php"><button type="submit" class="btn btn-info" name="modifier">Retour</button></a>
-
-                <a href="pdf-content.php?id=<?=$id?>"><button type="button" class="btn btn-info" name="modifier">PDF</button></a>
+                <a class="btn btn-success" href="pdf-content.php?id=<?=$id?>" role="button">PDF</a>
                 
-        
                 </div>
-                </form>
-            
-</section>
+            </form>
+    </section>
 </main>
 
 <?php

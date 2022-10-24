@@ -1,8 +1,8 @@
 
 <?php
 
-require_once 'connexion.php';
-require_once 'genpdf.php';
+require_once './outils/connexion.php';
+require_once'./outils/fonction.php';
 
 $id=$_GET['id'];
 $username=$_SESSION['username'];
@@ -23,18 +23,18 @@ $message= (isset($message))? $message:'';
 
 
 $html="
-        <body>
+    <body>
         <img src='./img/logo.png' width='150' height='150'>
             <h1>Information de l'intervention</h1>
             <ul>
                 <li>Date : $date</li>
-                <li>NOM : $username</li>
+                <li>Nom : $username</li>
                 <li>Etage : $etage</li>
                 <li>Position : $position</li>
                 <li>Prix : $prix</li>
                 <li>Message : $message</li>
             </ul>
-        </body>";
+    </body>";
 
 
 

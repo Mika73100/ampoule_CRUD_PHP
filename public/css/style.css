@@ -1,6 +1,6 @@
 body {
   margin: 50px;
-  background-color: var(--BackgroundForm);
+  background-color: var(--BackgroundDash);
   height: 80vh;
   display: flex;
   justify-content: center;
@@ -20,13 +20,13 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.btn btn-primary, btn-warning, btn-info, btn-danger {
+button.btn.btn-warning {
   color: white;
   text-decoration: none;
 }
 
 .container {
-  background-color: var(--BackgroundDash);
+  background-color: var(--BackgroundForm);
   padding: 20px;
   border-radius: 10px;
   width: 350px;
@@ -37,10 +37,15 @@ body {
   transform: translate(-50%, -50%);
 }
 
+h1 {
+  color: rgb(63, 57, 63);
+  font-size: 25px;
+}
+
 :root {
   --Boutton: rgb(80, 78, 205); /* couleur boutton */
   --BackgroundDash: #ffffff; /* background couleur dashbord */
-  --BackgroundForm: rgb(54, 52, 52); /* background couleur page formulaire */
+  --BackgroundForm: rgb(193, 182, 99); /* background couleur page formulaire */
 }
 
 /*# sourceMappingURL=style.css.map */

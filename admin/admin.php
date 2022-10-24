@@ -1,6 +1,7 @@
 <?php
 
-require_once '../connexion.php';
+require_once '../outils/connexion.php';
+require_once'../outils/fonction.php';
 
 ?>
 
@@ -8,9 +9,7 @@ require_once '../connexion.php';
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/logo-favicon.png" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <title>Dashbord</title>
@@ -24,6 +23,7 @@ require_once '../connexion.php';
         <div class="row">
             <section class="col-12">
                 <table class="table">
+                    <h1>Dashbord admin</h1>
                     <br>
                     <thead>
                         <th></th>
@@ -58,9 +58,9 @@ require_once '../connexion.php';
                                 <td><?= $users['nom'] ?><br></td>  
                                 <td><?= $users['prenom'] ?><br></td>                  
                                 <td>
-                                    <a href="formadmin.php?id=<?= $users['id'] ?>"><button class="btn btn-primary">Détails</button></a>
+                                    <a href="formadmin.php?id=<?= $users['id'] ?>"><button class="btn btn-primary">Détails</button></a><br><br>
 
-                                    <button type="submit" class="btn btn-danger"><a href="supprimer.php?id=<?=$users['id']?>">Supprimer</a></button>
+                                    <a class="btn btn-danger" href="supprimer.php?id=<?=$users['id']?>" role="button">Supprimer</a>
 
                                 </tr>
                             <?php $compteur++;} ?>
@@ -71,6 +71,7 @@ require_once '../connexion.php';
         </main>
     </body>
 </html>
+
 
 
 <?php

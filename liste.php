@@ -1,6 +1,7 @@
 <?php
 
-require_once 'connexion.php';
+require_once './outils/connexion.php';
+require_once'./outils/fonction.php';
 //require_once './outils/fonction.php';
 define("NOMBREETAGE",50);
 if (isset($_POST['ajouter'])) {
@@ -10,7 +11,7 @@ if (isset($_POST['ajouter'])) {
 
         $prepare = $pdo->prepare($sql);
         $prepare->bindParam(':etage', $_POST['etage'],PDO::PARAM_STR);
-        $prepare->bindParam(':prix', $_POST['prix'],PDO::PARAM_STR);
+        $prepare->bindParam(':prix', $_POST['prix'],PDO::PARAM_INT);
         $prepare->bindParam(':position', $_POST['position'],PDO::PARAM_STR);
         $prepare->bindParam(':users_id', $_SESSION['id'],PDO::PARAM_INT);
         $prepare->execute();
@@ -29,6 +30,7 @@ if (isset($_POST['ajouter'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../ampoule/img/logo-favicon.png" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./public/css/style.css">
     <title>Formulaire intervention</title>
@@ -41,7 +43,7 @@ if (isset($_POST['ajouter'])) {
         <form action="liste.php" method="post">
         
 
-            <div class="form-group">
+            <div class="form-group">  <h1>Ajouter une intervention</h1>
                 <label for="select">Selection de l'étage</label>
                 <select name="etage">
                 <?php for ($i=1; $i <=NOMBREETAGE ; $i++) { 
@@ -81,7 +83,7 @@ if (isset($_POST['ajouter'])) {
                 
             <button name="ajouter" type="ajouter" action="liste.php" class="btn btn-success">Ajouter</button>
             
-            <a class="btn btn-info" href="affiche.php" role="button">Dashbord</a>
+            <a class="btn btn-primary" href="affiche.php" role="button">Dashbord</a>
             </div>
             
 </form>

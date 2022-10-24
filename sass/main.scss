@@ -2,9 +2,10 @@
 @import "./components/container";
 @import "./components/boutton";
 @import "./components/formulaire";
+@import "./components/titre";
 
 :root {
     --Boutton: rgb(80, 78, 205); /* couleur boutton */
     --BackgroundDash: #ffffff;           /* background couleur dashbord */
-    --BackgroundForm: rgb(54, 52, 52);  /* background couleur page formulaire */
+    --BackgroundForm: rgb(193, 182, 99);  /* background couleur page formulaire */
     } 

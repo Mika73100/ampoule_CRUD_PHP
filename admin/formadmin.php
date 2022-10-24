@@ -1,7 +1,8 @@
 <?php
 
 //je recupère la connexion
-require_once '../connexion.php';
+require_once '../outils/connexion.php';
+require_once'../outils/fonction.php';
 
 
 $id=$_GET['id'];
@@ -19,9 +20,7 @@ error_log('debut de la condition');
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/logo-favicon.png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/css/style.css">
@@ -67,10 +66,10 @@ error_log('debut de la condition');
                         <input type="mail" max="30" value="<?=$users['mail']?>" class="form-control" name="mail" placeholder="email">
                         </input>
                     </div><br>
+                    
+        <a class="btn btn-primary" href="admin.php" role="button">Retour</a>
 
-                    <button class="btn btn-primary"><a href="admin.php">Retour</a></button>   
-
-                    <a href="modifier.php?id=<?= $users['id'] ?>"><button type="submit" class="btn btn-warning" name="modifier" onclick="return confirm('Voulez-vous modifier ?')">Modifier</button></a>
+        <a href="modifier.php?id=<?= $users['id'] ?>"><button type="submit" class="btn btn-warning" name="modifier" onclick="return confirm('Voulez-vous modifier ?')">Modifier</button></a>
                 </form>
         </section>
     </main>

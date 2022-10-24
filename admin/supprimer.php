@@ -1,6 +1,7 @@
 <?php
 
-require_once '../connexion.php';
+require_once '../outils/connexion.php';
+require_once'../outils/fonction.php';
 
 
 $sql= "DELETE FROM users WHERE id=".$_GET['id'];

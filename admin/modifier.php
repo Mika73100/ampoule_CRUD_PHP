@@ -1,6 +1,6 @@
 <?php
 
-require_once'../connexion.php';
+require_once '../outils/connexion.php';
 require_once'../outils/fonction.php';
 
 if (isset($_POST['modifier'])){
@@ -21,7 +21,7 @@ if (isset($_POST['modifier'])){
             $req->bindParam(':mail', $mail, PDO::PARAM_STR);
             $req->bindParam(':portable', $portable, PDO::PARAM_STR);
             $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);
-            $req->bindParam(':nom', $mail, PDO::PARAM_STR);
+            $req->bindParam(':nom', $nom, PDO::PARAM_STR);
             $req->bindParam(':id', $id , PDO::PARAM_INT);
 
 

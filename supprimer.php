@@ -1,6 +1,7 @@
 <?php
 
-require_once 'connexion.php';
+require_once './outils/connexion.php';
+require_once'./outils/fonction.php';
 
 //$sql = "DELETE FROM `exo` WHERE id = :id";
 $sql= "DELETE FROM exo WHERE id=".$_GET['id'];

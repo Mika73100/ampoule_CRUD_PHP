@@ -1,11 +1,11 @@
 <?php
 
-require'../connexion.php';
+require'../outils/connexion.php';
 require_once'../outils/fonction.php';
 
 unset($_SESSION['id']);
 unset($_SESSION['username']);
-error_log("Inscription ".print_r($_SESSION, 1));
+error_log("Inscription".print_r($_SESSION, 1));
 
 error_log(print_r($_POST,1));
 if (isset($_POST["inscription"])){
@@ -47,6 +47,7 @@ if( !empty($username = valid_donnees($_POST['username'])) &&
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../ampoule/img/logo-favicon.png" />
     <link rel="stylesheet" href="inscription.css">
 
     <title>Inscription</title>

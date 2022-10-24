@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bootstrap": "^5.2.1",
     "sass": "^1.54.8"
   },
   "name": "ampoule",
@@ -8,7 +9,6 @@
   "directories": {
     "doc": "doc"
   },
-  "devDependencies": {},
   "scripts": {
     "sass": "sass --watch ./sass/main.scss:./public/css/style.css"
   },
